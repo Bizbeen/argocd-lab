@@ -6,7 +6,7 @@ resources:
 
 replicas:
   - name: nginx-kustomize
-    count: 1
+    count: 2
 
 images:
   - name: nginx
