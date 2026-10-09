@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-kustomize
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx-kustomize
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-kustomize
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-kustomize
+  template:
+    metadata:
+      labels:
+        app: nginx-kustomize
+    spec:
+      containers:
+      - image: nginx:1.27
+        name: nginx
+        ports:
+        - containerPort: 80
