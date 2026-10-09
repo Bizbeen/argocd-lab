@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-plain
+spec:
+  selector:
+    app: nginx-plain
+  ports:
+    - port: 80
+      targetPort: 80

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  # 1. Change this to the namespace where Argo CD is installed (typically argocd)
+  namespace: argocd 
+spec:
+  # 2. This field is required by Argo CD to pass validation
+  project: default 
+  
+  source:
+    repoURL: https://github.com/Bizbeen/argocd-lab.git
+    path: apps/guestbook
+    targetRevision: main
+
+  destination:
+    server: https://kubernetes.default.svc
+    # This is the destination namespace where your guestbook pods will be deployed
+    namespace: guestbook 
+
