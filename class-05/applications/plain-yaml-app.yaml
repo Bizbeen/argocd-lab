@@ -8,8 +8,8 @@ spec:
 
   source:
     repoURL: https://github.com/Bizbeen/argocd-lab.git
-    targetRevision: HEAD
-    path: class-05/plain-yaml
+    targetRevision: main
+    path: class-05/plain.yaml
 
   destination:
     server: https://kubernetes.default.svc
