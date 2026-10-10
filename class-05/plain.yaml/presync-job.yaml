@@ -1,0 +1,21 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: presync-demo
+  namespace: plain-yaml
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: validation
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - 'echo "PreSync validation successful"'
