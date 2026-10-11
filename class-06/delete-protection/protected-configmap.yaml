@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: delete-protection-demo
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
+data:
+  purpose: "Learn Argo CD Delete=false"
+  environment: "training"
