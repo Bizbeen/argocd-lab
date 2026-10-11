@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waves-demo
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waves-demo
+  template:
+    metadata:
+      labels:
+        app: waves-demo
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: waves-demo-config
