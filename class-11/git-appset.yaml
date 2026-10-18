@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-11-git-appset
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        revision: main
+        directories:
+          - path: class-11/apps/*
+  template:
+    metadata:
+      name: 'class-11-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'class-11-{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
