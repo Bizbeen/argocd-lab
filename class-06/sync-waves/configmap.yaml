@@ -4,7 +4,7 @@ metadata:
   name: waves-demo-config
   annotations:
     argocd.argoproj.io/sync-wave: "-2"
-    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/sync-options: Prune=confirm 
 data:
   APP_ENV: "training"
   APP_MESSAGE: "Sync waves lab"

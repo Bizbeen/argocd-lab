@@ -1,23 +1,63 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kustomize-app
+  name: kustomize-app-dev
   namespace: argocd
 spec:
   project: default
-
   source:
     repoURL: https://github.com/Bizbeen/argocd-lab.git
     targetRevision: main
     path: class-05/kustomize/overlays/dev
-
   destination:
     server: https://kubernetes.default.svc
-    namespace: kustomize-app
-
+    namespace: kustomize-app-dev
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-app-stage
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bizbeen/argocd-lab.git
+    targetRevision: main
+    path: class-05/kustomize/overlays/stage
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kustomize-app-stage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-app-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bizbeen/argocd-lab.git
+    targetRevision: main
+    path: class-05/kustomize/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kustomize-app-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
