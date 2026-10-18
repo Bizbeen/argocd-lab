@@ -8,12 +8,10 @@ spec:
   source:
     repoURL: https://github.com/Bizbeen/argocd-lab.git
     targetRevision: main
-    path: class-09/apps/app-one
-    directory:
-      exclude: application.yaml
+    path: class-09/apps/app-two
   destination:
     server: https://kubernetes.default.svc
-    namespace: app-one
+    namespace: app-two
   syncPolicy:
     automated:
       prune: true

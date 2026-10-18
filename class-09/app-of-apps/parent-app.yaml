@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Bizbeen/argocd-lab.git
     targetRevision: main
-    path: class-09/apps
+    path: class-09/applications
     directory:
       recurse: true
   destination:
