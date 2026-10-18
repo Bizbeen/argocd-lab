@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-three
+  labels:
+    app: class10-app-three
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: class10-app-three
+  template:
+    metadata:
+      labels:
+        app: class10-app-three
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80

@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-one
+  labels:
+    app: class10-app-one
 spec:
   replicas: 1
   selector:

@@ -10,6 +10,7 @@ spec:
         elements:
           - app: app-one
           - app: app-two
+          - app: aap-three
 
   template:
     metadata:
