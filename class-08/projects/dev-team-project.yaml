@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev-team-project
+  namespace: argocd
+spec:
+  description: Restricted project for the Class 08 lab
+
+  sourceRepos:
+    - https://github.com/Bizbeen/argocd-lab.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: project-demo
+
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Service
+    - group: apps
+      kind: Deployment
