@@ -1,0 +1,31 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-10-list-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - app: app-one
+          - app: app-two
+
+  template:
+    metadata:
+      name: '{{app}}-generated'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: main
+        path: class-10/apps/{{app}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: class-10-{{app}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
