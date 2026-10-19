@@ -16,6 +16,8 @@ spec:
             env: dev
           - app: frontend
             env: prod
+          - app: backend
+            env: prod
   template:
     metadata:
       name: 'class-15-{{.app}}-{{.env}}'
