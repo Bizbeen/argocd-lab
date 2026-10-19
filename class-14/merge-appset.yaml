@@ -24,6 +24,8 @@ spec:
               elements:
                 - env: prod
                   path: class-14/apps/frontend-prod
+                - env: dev
+                  path: class-14/apps/frontend-dev
   template:
     metadata:
       name: 'class-14-frontend-{{.env}}'
