@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-13-matrix-generator
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - app: frontend
+                - app: backend
+          - list:
+              elements:
+                - env: dev
+                - env: stage
+  template:
+    metadata:
+      name: 'class-13-{{.app}}-{{.env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: HEAD
+        path: 'class-13/apps/{{.app}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'class-13-{{.app}}-{{.env}}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
