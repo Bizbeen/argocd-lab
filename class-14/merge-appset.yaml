@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-14-merge-generator
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - merge:
+        mergeKeys:
+          - env
+        generators:
+          - list:
+              elements:
+                - env: dev
+                  path: class-14/apps/frontend-default
+                - env: stage
+                  path: class-14/apps/frontend-default
+                - env: prod
+                  path: class-14/apps/frontend-default
+          - list:
+              elements:
+                - env: prod
+                  path: class-14/apps/frontend-prod
+  template:
+    metadata:
+      name: 'class-14-frontend-{{.env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: HEAD
+        path: '{{.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'class-14-frontend-{{.env}}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
