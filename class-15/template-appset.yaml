@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-15-go-template
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - list:
+        elements:
+          - app: frontend
+            env: dev
+          - app: backend
+            env: dev
+          - app: frontend
+            env: prod
+  template:
+    metadata:
+      name: 'class-15-{{.app}}-{{.env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: HEAD
+        path: 'class-15/apps/{{.app}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'class-15-{{.app}}-{{.env}}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
