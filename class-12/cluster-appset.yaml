@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: class-12-cluster-generator
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: 'class-12-{{.nameNormalized}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bizbeen/argocd-lab.git
+        targetRevision: HEAD
+        path: class-11/apps/app-one
+      destination:
+        server: '{{.server}}'
+        namespace: class-12-demo
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
